@@ -1,7 +1,7 @@
 use std::fs;
 
 fn main() {
-    let input = fs::read_to_string("input.txt").expect("Invalid input!");
+    let input = fs::read_to_string("day_2/input.txt").expect("Invalid input!");
     let input = input.trim();
 
     let lines = input.lines();
