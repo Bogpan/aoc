@@ -4,12 +4,10 @@ fn main() {
     let input = fs::read_to_string("day_2/input.txt").expect("Invalid input!");
     let input = input.trim();
 
-    let lines = input.lines();
-
     let mut score_part1 = 0;
     let mut score_part2 = 0;
 
-    for line in lines {
+    for line in input.lines() {
         let (opponent, you): (&str, &str) = line.split_at(1);
         let you = you.trim();
 
