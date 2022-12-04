@@ -22,9 +22,7 @@ fn main() {
     }
 
     for group in groups {
-        let elf1 = group[0];
-        let elf2 = group[1];
-        let elf3 = group[2];
+        let (elf1, elf2, elf3) = (group[0], group[1], group[2]);
 
         let common: Vec<char> = elf3
             .chars()
