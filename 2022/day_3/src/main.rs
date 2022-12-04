@@ -1,6 +1,6 @@
 use std::fs;
 
-const PRIORITY: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const PRIORITY: &str = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 fn main() {
     // TODO: Change to day_3/input.txt
@@ -15,7 +15,7 @@ fn main() {
 
         let common: Vec<char> = second.chars().filter(|c| first.contains(c)).collect();
 
-        sum += PRIORITY.find(|c: char| common.contains(&c)).unwrap() + 1;
+        sum += PRIORITY.find(|c: char| common.contains(&c)).unwrap();
     }
 
     println!("{}", sum);
