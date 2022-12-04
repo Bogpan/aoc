@@ -5,5 +5,5 @@ fn main() {
     let input = fs::read_to_string("input.txt").unwrap();
     let input = input.trim();
 
-    println!("Hello, world!");
+    println!("test");
 }
