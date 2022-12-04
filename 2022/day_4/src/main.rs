@@ -1,8 +1,7 @@
 use std::fs;
 
 fn main() {
-    // TODO: Change to day_4/input.txt
-    let input = fs::read_to_string("input.txt").unwrap();
+    let input = fs::read_to_string("day_4/input.txt").unwrap();
     let input = input.trim();
 
     let mut count_part1 = 0;
