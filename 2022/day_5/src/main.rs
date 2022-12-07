@@ -19,7 +19,12 @@ fn main() {
 
     let mut crate_stacks1: Vec<Vec<&str>> = transposed
         .into_iter()
-        .map(|c| c.into_iter().filter(|i| *i != "[!]").collect())
+        .map(|s| {
+            s.into_iter()
+                .filter(|i| *i != "[!]")
+                .map(|c| c.trim_matches(&['[', ']'][..]))
+                .collect()
+        })
         .collect();
 
     crate_stacks1.iter_mut().for_each(|c| c.reverse());
@@ -32,26 +37,21 @@ fn main() {
             .filter_map(|c| c.parse::<usize>().ok())
             .collect();
 
-        let (amount, from, to) = (indices[0], indices[1] - 1, indices[2] - 1);
-        let size1 = crate_stacks1.get(from).unwrap().len();
-        let size2 = crate_stacks2.get(from).unwrap().len();
+        move_crates(
+            &mut crate_stacks1[..],
+            (indices[0], indices[1] - 1, indices[2] - 1),
+            true,
+        );
 
-        let removed1: Vec<&str> = crate_stacks1[from].drain(size1 - amount..).rev().collect();
-        let removed2: Vec<&str> = crate_stacks2[from].drain(size2 - amount..).collect();
-
-        crate_stacks1[to].extend(removed1);
-        crate_stacks2[to].extend(removed2);
+        move_crates(
+            &mut crate_stacks2[..],
+            (indices[0], indices[1] - 1, indices[2] - 1),
+            false,
+        );
     }
 
-    let top_part1: String = crate_stacks1
-        .iter()
-        .map(|s| s.last().unwrap().trim_matches(&['[', ']'][..]))
-        .collect();
-
-    let top_part2: String = crate_stacks2
-        .iter()
-        .map(|s| s.last().unwrap().trim_matches(&['[', ']'][..]))
-        .collect();
+    let top_part1: String = crate_stacks1.iter().map(|s| *s.last().unwrap()).collect();
+    let top_part2: String = crate_stacks2.iter().map(|s| *s.last().unwrap()).collect();
 
     println!("Part 1: {}\nPart 2: {}", top_part1, top_part2);
 }
@@ -70,4 +70,17 @@ fn transpose<'a>(matrix: &'a [Vec<&'a str>]) -> Vec<Vec<&'a str>> {
     }
 
     transposed
+}
+
+fn move_crates(vec: &mut [Vec<&str>], (amount, from, to): (usize, usize, usize), rev: bool) {
+    let size = vec[from].len();
+    let elements = vec[from].drain(size - amount..);
+
+    let removed: Vec<&str> = if rev {
+        elements.rev().collect()
+    } else {
+        elements.collect()
+    };
+
+    vec[to].extend(removed);
 }
