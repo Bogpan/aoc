@@ -4,10 +4,11 @@ fn main() {
     let input = fs::read_to_string("input.txt").unwrap();
     let input = input.trim();
 
-    let index1 = unique_index(input, 4);
-    let index2 = unique_index(input, 14);
-
-    println!("Part 1: {}\nPart 2: {}", index1, index2);
+    println!(
+        "Part 1: {}\nPart 2: {}",
+        unique_index(input, 4),
+        unique_index(input, 14)
+    );
 }
 
 fn unique_index(string: &str, offset: usize) -> usize {
